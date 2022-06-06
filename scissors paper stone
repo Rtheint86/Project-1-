@@ -1,0 +1,97 @@
+/*
+How many hours did you spend on this assignment?: 4 to 5 hrs 
+
+What part of the assignment did you spend the most time on?: figuring out helper functions 
+
+How comfortable did you feel with this assignment? (1-5): 2 . i am still struggling with concepts and applications. 
+
+Is there anything in this code that you feel pleased about?: being able to breakdown the problems to smaller ones and resolve them 
+
+What's one aspect of your code you would like specific, elaborate feedback on ? : 
+
+*/
+//global variables
+var playerWIN = 0;
+var compWIN = 0;
+var numOfGames = 0;
+var userName = "";
+var myOutputValue = " ";
+
+// generate a random integer for the computer selection in integer
+// make the selection to 3 . ( scissors / paper / stone )
+
+var computerSelection = function () {
+  var selectionIndecimal = Math.random() * 3;
+  var comSelect = Math.floor(selectionIndecimal) + 1;
+  return comSelect;
+};
+
+// if comp selected 1 , it is scissors
+//if comp selected 2 , it is paper
+//if comp selected 3 , it is stone
+var generateRandomSelection = function () {
+  var randomselection = computerSelection();
+  if (randomselection == 1) {
+    return "scissors";
+  } else if (randomselection == 2) {
+    return "paper";
+  } else if (randomselection == 3) {
+    return "stone";
+  } else {
+    return "error";
+  }
+};
+// game starts . select the conditions for draw / win / lose
+// define function with two variable ( userInput and computer generated randomn number )
+
+var getGameResults = function (input, randomselection) {
+  // show how many rounds of games have been played so far
+  numOfGames += 1;
+  // condition for draw , if the input is same as the randomselection
+  if (input == randomselection) {
+    return "it's a Draw! ";
+  }
+
+  // define winning conditions for user
+  // if player select stone , computer select scissors , player  win
+  //if player select scissors , computer select paper , player win
+  // if player seect paper , computer select stone , player win
+  else if (
+    (input == "stone" && randomselection == "scissors") ||
+    (input == "scissors" && randomselection == "paper") ||
+    (input == "paper" && randomselection == "stone")
+  ) {
+    return "Congrats , you have won ";
+    // count how many times player have won
+    playerWIN += 1;
+  }
+  // if those three conditions are not met , player lose aka computer win
+  else {
+    return " Sorry. You have Lost ";
+    compWIN += 1;
+  }
+};
+
+var main = function (input, userName) {
+  // first step ask the user to input their name
+  if (userName == "" && input != " ") {
+    userName = input;
+    // ask the user to input their name
+    if (userName == "" && input != "") {
+      userName = input;
+      myOutputValue = "Hello" + userName + " Welcome to the game";
+      return myOutputValue;
+    } else if (input == "") {
+      myOutputValue = "Please , enter your name to start the game";
+      return myOutputValue;
+    }
+
+    //validate the input selection to be s , p & stone . else display a message
+    var userSelection = input;
+    if (input != "scissors" && input != "paper" && input != "stone") {
+      return "Please enter correct selection : It is either scissors, paper or stone.";
+    }
+  }
+  var gameresults = getGameResults(input, generateRandomSelection());
+  return gameresults;
+};
